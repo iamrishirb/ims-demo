@@ -534,6 +534,15 @@ class Admin extends CI_Controller {
 			$this->load->view('backend/index', $page_data);
 		}
 
+		// print student registration
+		if($param1 == 'print') {
+			$page_data['student_id'] = $param2;
+			$page_data['folder_name'] = 'student';
+			$page_data['page_title'] = 'print_student_registration';
+			$page_data['page_name'] = 'print';
+			$this->load->view('backend/index', $page_data);
+		  }
+
 		//updated to database
 		if($param1 == 'updated'){
 			$response = $this->user_model->student_update($param2, $param3);

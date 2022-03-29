@@ -570,7 +570,6 @@ class Superadmin extends CI_Controller {
       $this->load->view('backend/index', $page_data);
     }
 
-
     // print student registration
     if($param1 == 'print') {
       $page_data['student_id'] = $param2;
