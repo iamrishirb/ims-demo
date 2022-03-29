@@ -30,6 +30,8 @@
               <?php if(addon_status('id-card')):?>
                 <a href="javascript:void(0);" class="dropdown-item" onclick="largeModal('<?php echo site_url('modal/popup/student/id_card/'.$student['id'])?>', '<?php echo $this->db->get_where('schools', array('id' => $school_id))->row('name'); ?>')"><?php echo get_phrase('generate_id_card'); ?></a>
               <?php endif;?>
+              <!-- item_print-->
+              <a href="<?php echo route('student/print/'.$student['id'])?>" class="dropdown-item" target="_blank"><?php echo get_phrase('print'); ?></a>
               <!-- item-->
   						<a href="javascript:void(0);" class="dropdown-item"  onclick="largeModal('<?php echo site_url('modal/popup/student/profile/'.$student['id'])?>', '<?php echo $this->db->get_where('schools', array('id' => $school_id))->row('name'); ?>')"><?php echo get_phrase('profile'); ?></a>
   						<!-- item-->

@@ -19,14 +19,14 @@
             <div class="row">
                 <div class="col-12">
                     <a href="<?php echo base_url('assets/csv_file/student.generate.csv'); ?>" class="btn btn-success btn-sm mb-1" download><?php echo get_phrase('generate_csv_file'); ?><i class="mdi mdi-download"></i></a>
-                    <button href="#" class="btn btn-dark btn-sm mb-1 mdi mdi-eye-outline" onclick="largeModal('<?php echo site_url('modal/popup/student/csv_preview'); ?>', 'CSV Format');" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-original-title="<?php echo get_phrase('preview_csv_format'); ?>"></button>
+                    <button href="#" class="btn btn-dark btn-sm mb-1 mdi mdi-eye-outline" onclick="largeModal('<?php echo site_url('modal/popup/student/csv_preview'); ?>', 'CSV Format');" data-bs-toggle="tooltip" data-bs-placement="top" title="<?php echo get_phrase('preview_csv_format'); ?>"></button>
 
                 </div>
             </div>
             <br>
             <div class="form-group">
-                <label class="m-0"><?php echo get_phrase('upload').'CSV'; ?></label>
-                <div class="custom-file-upload d-inline-block">
+                <label class="m-0"><?php echo get_phrase('upload').' CSV'; ?></label>
+                <div class="custom-file-upload d-block">
                     <input type="file" id="csv_file" class="form-control" name="csv_file" required>
                 </div>
             </div>

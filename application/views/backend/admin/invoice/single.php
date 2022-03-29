@@ -22,7 +22,22 @@
 
     <div class="form-group mb-2">
       <label for="title"><?php echo get_phrase('invoice_title'); ?></label>
-      <input type="text" class="form-control" id="title" name = "title" required>
+      <input type="text" class="form-control" id="title" name = "title" placeholder="Tution Fee for April Month" required>
+    </div>
+
+    <!--TYPE OF PAYMENT ID-------------------------------------------------------------------------------------->
+    <div class="form-group mb-1">
+        <label for="type_of_fee_id"><?php echo get_phrase('type_of_fee');?></label>
+        <div id = "type_of_fee_id">
+            <select name="type_of_fee_id" id="type_of_fee_id" class="form-control select1" data-bs-toggle="select1" required >
+                <option value="1"><?php echo get_phrase('admission_fee');?></option>
+                <option value="2"><?php echo get_phrase('tution_fee');?></option>
+                <option value="3"><?php echo get_phrase('examination_fee');?></option>
+                <option value="4"><?php echo get_phrase('laboratory_fee');?></option>
+                <option value="5"><?php echo get_phrase('library_fee');?></option>
+                <option value="6"><?php echo get_phrase('miscellaneous');?></option>
+            </select>
+        </div>
     </div>
 
     <div class="form-group mb-2">
@@ -34,6 +49,23 @@
       <label for="paid_amount"><?php echo get_phrase('paid_amount').' ('.currency_code_and_symbol('code').')'; ?></label>
       <input type="number" class="form-control" id="paid_amount" name = "paid_amount" required>
     </div>
+
+    <!--METHOD-------------------------------------------------------------------------------------->
+    <div class="form-group mb-1">
+        <label for="payment_method"><?php echo get_phrase('payment_method');?></label>
+        <div id = "payment_method">
+            <select name="payment_method" id="method" class="form-control select1" data-bs-toggle="select1" required >
+
+                <option value="1"><?php echo get_phrase('cash');?></option>
+                <option value="2"><?php echo get_phrase('cheque');?></option>
+                <option value="3"><?php echo get_phrase('card');?></option>
+            </select>
+        </div>
+    </div>
+
+    <!--hidden field to update due amount-->
+    <input type="hidden" name="due_amount" value="<?php echo $due_amount = $invoice_details['total_amount'] - $invoice_details['paid_amount'];?>">
+    <!--STATUS-->
 
     <div class="form-group mb-2">
       <label for="status"><?php echo get_phrase('status'); ?></label>

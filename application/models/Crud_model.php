@@ -280,7 +280,7 @@ class Crud_model extends CI_Model {
 	public function get_subject_by_id($subject_id = '') {
 		return $this->db->get_where('subjects', array('id' => $subject_id))->row_array();
 	}
-	
+
 	//END SUBJECT section
 
 
@@ -841,14 +841,68 @@ class Crud_model extends CI_Model {
 		}else{
 			return array();
 		}
+
+	}
+//-------------------------------------------------------------------------------PAYMENT_ID
+	public function get_payment_by_id($payment_id = "") {
+		return $this->db->get_where('payment', array('payment_id' => $payment_id))->row_array();
 	}
 
+	public function get_pay_by_id($invoice_id = "") {
+		$this->db->where('invoice_id', $invoice_id);
+		return $this->db->get('payment')->result_array();
+	}
+
+	public function get_payment_by_date_range($date_from = "", $date_to = "", $selected_class = "", $selected_status = "") {
+		if ($selected_class != "all") {
+			$this->db->where('class_id', $selected_class);
+		}
+		if ($selected_status != "all") {
+			$this->db->where('status', $selected_status);
+		}
+		$this->db->where('timestamp >=', $date_from);
+		$this->db->where('timestamp <=', $date_to);
+	//	$this->db->where('session', $this->active_session);
+		return $this->db->get('payment');
+	}
+
+
+
+// This function will be triggered if parent logs in
+/*
+public function get_payment_by_parent_id() {
+	$parent_user_id = $this->session->userdata('user_id');
+	$parent_data = $this->db->get_where('parents', array('user_id' => $parent_user_id))->row_array();
+	$student_list = $this->user_model->get_student_list_of_logged_in_parent();
+	$student_ids = array();
+	foreach ($student_list as $student) {
+		if(!in_array($student['student_id'], $student_ids)){
+			array_push($student_ids, $student['student_id']);
+		}
+	}
+
+	if (count($student_ids) > 0) {
+		$this->db->where_in('student_id', $student_ids);
+		$this->db->where('school_id', $this->school_id);
+		$this->db->where('session', $this->active_session);
+		return $this->db->get('invoices')->result_array();
+	}else{
+		return array();
+	}
+
+}              */
+//-----------------------------------------------------------------------------CREATE INVOICE
 	public function create_single_invoice() {
 		$data['title'] = htmlspecialchars($this->input->post('title'));
+		$data['remarks'] = htmlspecialchars($this->input->post('remarks'));
 		$data['total_amount'] = htmlspecialchars($this->input->post('total_amount'));
 		$data['class_id'] = htmlspecialchars($this->input->post('class_id'));
 		$data['student_id'] = htmlspecialchars($this->input->post('student_id'));
+		$data['1st_installment'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['paid_amount'] = htmlspecialchars($this->input->post('paid_amount'));
+		$data['due_amount'] = $data['total_amount'] - $data['paid_amount'];
+		$data['type_of_fee_id'] = htmlspecialchars($this->input->post('type_of_fee_id'));
+		$data['payment_method'] = $this->input->post('payment_method');
 		$data['status'] = htmlspecialchars($this->input->post('status'));
 		$data['school_id'] = $this->school_id;
 		$data['session'] = $this->active_session;
@@ -885,6 +939,7 @@ class Crud_model extends CI_Model {
 
 	public function create_mass_invoice() {
 		$data['total_amount'] = htmlspecialchars($this->input->post('total_amount'));
+		$data['1st_installment'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['paid_amount'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['status'] = htmlspecialchars($this->input->post('status'));
 
@@ -938,7 +993,58 @@ class Crud_model extends CI_Model {
 		}
 		return json_encode($response);
 	}
+	/*-----------------------------------------------------------TAKE PAYMENT CRUD MODEL */
+	public function take_payment($id = "") {
 
+		$data['title']               = htmlspecialchars($this->input->post('title'));
+		$data['remarks']		     = htmlspecialchars($this->input->post('remarks'));
+		$data['invoice_id'] 		 = $this->input->post('invoice_id');
+		$data['class_id'] 			 = $this->input->post('class_id');
+		$data['student_id'] 		 = $this->input->post('student_id');
+		$data['method']      		 = $this->input->post('method');
+	//	$data['payment_type']        = 'income';
+	//	$data['type_of_fee_id']      = htmlspecialchars($this->input->post('type_of_fee_id'));
+		$data['payment_amount'] 	 = htmlspecialchars($this->input->post('payment_amount'));
+		$data['timestamp']           = strtotime(date('d-M-Y'));
+		$data2['due_amount']         = $this->input->post('due_amount');
+
+		if ($data2['due_amount'] < $data['payment_amount']) {
+			$response = array(
+				'status' => false,
+				'notification' => get_phrase('payment_cannot_be_made_after_no_dues')
+			);
+			return json_encode($response);
+		}else{
+		$this->db->insert('payment' , $data);
+		}
+
+//		$data['year']         =   $this->db->get_where('settings' , array('type' => 'running_year'))->row()->description;
+
+//UPDATE INVOICES DATABASE PAID, due AMOUNT--------------------------------------------------------
+        if(true){
+		$this->db->where('id', $data['invoice_id']);
+		$invoice_details = $this->db->get('invoices')->row_array();
+		if($invoice_details['due_amount'] > 0){
+			if($data2['due_amount'] == $data['payment_amount'])
+			{
+						$updater['status'] = 'paid';
+			}
+		$updater['paid_amount'] = $invoice_details['paid_amount'] + $data['payment_amount'];
+		$updater['due_amount']  = $invoice_details['due_amount'] - $data['payment_amount'];
+		$updater['updated_at']  = strtotime(date('d-M-Y'));
+		$this->db->where('id', $data['invoice_id']);
+		$this->db->update('invoices', $updater);
+	    }
+	}
+		$response = array(
+			'status' => true,
+			'notification' => get_phrase('payment_taken_successfully')
+		);
+		return json_encode($response);
+
+	}
+
+	/*-----------------------------------------------------------UPDATE INVOICE CRUD MODEL */
 	public function update_invoice($id = "") {
 
 		/*GET THE PREVIOUS INVOICE DETAILS FOR GETTING THE PAID AMOUNT*/
@@ -1109,12 +1215,12 @@ class Crud_model extends CI_Model {
 	public function payment_success($data = array()) {
 		$this->db->where('id', $data['invoice_id']);
 		$invoice_details = $this->db->get('invoices')->row_array();
-		$due_amount = $invoice_details['total_amount'] - $invoice_details['paid_amount'];
-		if ($due_amount == $data['amount_paid']) {
+		$due_amount_amount = $invoice_details['total_amount'] - $invoice_details['paid_amount'];
+		if ($due_amount_amount == $data['paid_amount']) {
 			$updater = array(
 				'status' => 'paid',
 				'payment_method' => $data['payment_method'],
-				'paid_amount' => $data['amount_paid'] + $invoice_details['paid_amount'],
+				'paid_amount' => $data['paid_amount'] + $invoice_details['paid_amount'],
 				'updated_at'  => strtotime(date('d-M-Y'))
 			);
 			$this->db->where('id', $data['invoice_id']);

@@ -6,8 +6,17 @@
         <h4 class="page-title d-inline-block">
           <i class="mdi mdi-file-document title_icon"></i> <?php echo get_phrase('student_fee_manager'); ?>
         </h4>
+
+        <!--PAYMENT HISTORY-->
+        <a href="<?php echo site_url('Superadmin/payment_history');?>" class="btn btn-success btn-rounded alignToTitle float-end my-1" style="margin-left: 20px; padding: 8px 20px;">
+          <?php echo get_phrase('payment_history');?>
+        </a>
+        
+        <!-- Add Single Invoice Button -->
         <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/invoice/single'); ?>', '<?php echo get_phrase('add_single_invoice'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_single_invoice'); ?></button>
-          <button type="button" class="btn btn-outline-success btn-rounded alignToTitle float-end my-1" style="margin-right: 10px;" onclick="rightModal('<?php echo site_url('modal/popup/invoice/mass'); ?>', '<?php echo get_phrase('add_mass_invoice'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_mass_invoice'); ?></button>
+        <!-- Check Payment History Button -->
+        <!-- <button type="button" class="btn btn-outline-success btn-rounded alignToTitle float-end my-1" style="margin-right: 10px;" onclick="rightModal('<?php echo site_url('modal/popup/invoice/mass'); ?>', '<?php echo get_phrase('add_mass_invoice'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_mass_invoice'); ?></button> -->
+
       </div> <!-- end card body-->
     </div> <!-- end card -->
   </div><!-- end col-->

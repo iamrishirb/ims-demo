@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
         <!-- LOGO -->
-        <a href="<?php echo site_url($this->session->userdata('role')); ?>" class="topnav-logo" style = "min-width: unset;">
+        <a href="https://bdspm.org/" class="topnav-logo" style = "min-width: unset;">
             <span class="topnav-logo-lg">
                 <img src="<?php echo $this->settings_model->get_logo_light(); ?>" alt="" height="40">
             </span>
@@ -44,7 +44,7 @@
                     <span>
                         <span class="account-user-name"><?php echo $user_name; ?></span>
                         <?php if (strtolower($this->db->get_where('users', array('id' => $user_id))->row('role')) == 'admin'): ?>
-                            <span class="account-position"><?php echo get_phrase('school_admin'); ?></span>
+                            <span class="account-position"><?php echo 'College Admin'; ?></span>
                         <?php else: ?>
                             <span class="account-position"><?php echo ucfirst($this->db->get_where('users', array('id' => $user_id))->row('role')); ?></span>
                         <?php endif; ?>
@@ -73,7 +73,7 @@
 
                     <?php if ($this->session->userdata('user_type') == 'superadmin' || $this->session->userdata('user_type') == 'admin'): ?>
                         <!-- item-->
-                        <a href="mailto:support@creativeitem.com?Subject=Help%20On%20This" target="_blank" class="dropdown-item notify-item">
+                        <a href="mailto:support@webflair.in?Subject=Help%20On%20This" target="_blank" class="dropdown-item notify-item">
                             <i class="mdi mdi-lifebuoy me-1"></i>
                             <span><?php echo get_phrase('support'); ?></span>
                         </a>
@@ -91,7 +91,7 @@
         </ul>
         <div class="app-search dropdown pt-1 mt-2">
             <h4 style="color: #fff; float: left;" class="d-none d-md-inline-block"> <?php echo get_settings('system_name'); ?></h4>
-            <a href="http://localhost/academy_5.3/home" target="" class="btn btn-outline-light ms-2 d-none d-md-inline-block"><?php echo get_phrase('visit_website'); ?></a>
+            <a href="https://bdspm.org/" target="_blank" class="btn btn-outline-light ms-2 d-none d-md-inline-block"><?php echo get_phrase('visit_website'); ?></a>
         </div>
         <a class="button-menu-mobile disable-btn">
             <div class="lines">

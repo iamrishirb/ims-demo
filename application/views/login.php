@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Login</title>
+    <title>Login | BDSPM Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -27,8 +27,8 @@
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="text-center text-lg-left mb-3">
-                        <a href="<?php echo site_url(); ?>">
-                            <span><img src="<?php echo $this->settings_model->get_logo_dark(); ?>" alt="" height="35"></span>
+                        <a href="https://bdspm.org">
+                            <span><img src="<?php echo $this->settings_model->get_logo_dark(); ?>" alt="" height="60"></span>
                         </a>
                     </div>
                     <!-- title-->

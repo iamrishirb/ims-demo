@@ -1,4 +1,6 @@
-<?php $school_id = school_id(); ?>
+<?php
+  $school_id = school_id();
+?>
 <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
   <thead>
     <tr style="background-color: #313a46; color: #ababab;">
@@ -10,7 +12,6 @@
   </thead>
   <tbody>
     <?php
-    $school_id = school_id();
     $enrols = $this->db->get_where('enrols', array('class_id' => $class_id, 'section_id' => $section_id, 'school_id' => $school_id, 'session' => active_session()))->result_array();
     foreach($enrols as $enroll){
       $student = $this->db->get_where('students', array('id' => $enroll['student_id']))->row_array();
@@ -24,8 +25,14 @@
         <td>
           <div class="dropdown text-center">
   					<button type="button" class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
-  					<div class="dropdown-menu dropdown-menu-end">
-  						<!-- item-->
+  					<div class="dropdown-menu dropdown-menu-right">
+              <!-- item-->
+              <?php if(addon_status('id-card')):?>
+                <a href="javascript:void(0);" class="dropdown-item" onclick="largeModal('<?php echo site_url('modal/popup/student/id_card/'.$student['id'])?>', '<?php echo $this->db->get_where('schools', array('id' => $school_id))->row('name'); ?>')"><?php echo get_phrase('generate_id_card'); ?></a>
+              <?php endif;?>
+              <!-- item_print-->
+              <a href="<?php echo route('student/print/'.$student['id'])?>" class="dropdown-item" target="_blank"><?php echo get_phrase('print'); ?></a>
+              <!-- item-->
   						<a href="javascript:void(0);" class="dropdown-item"  onclick="largeModal('<?php echo site_url('modal/popup/student/profile/'.$student['id'])?>', '<?php echo $this->db->get_where('schools', array('id' => $school_id))->row('name'); ?>')"><?php echo get_phrase('profile'); ?></a>
   						<!-- item-->
   						<a href="<?php echo route('student/edit/'.$student['id']); ?>" class="dropdown-item"><?php echo get_phrase('edit'); ?></a>

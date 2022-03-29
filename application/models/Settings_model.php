@@ -367,6 +367,10 @@ class Settings_model extends CI_Model {
     }
 
   }
+  // GET SIGNATURE
+  public function get_account_sign() {
+      return base_url('uploads/system/logo/account_sign.jpeg');
+  }
 
   // GET LIGHT LOGO
   public function get_logo_light($type = "") {
@@ -384,9 +388,3 @@ class Settings_model extends CI_Model {
 
 
 }
-
-
-
-
-
-

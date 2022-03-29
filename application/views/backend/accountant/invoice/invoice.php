@@ -21,8 +21,8 @@
 
         <!-- Invoice Logo-->
         <div class="clearfix">
-          <div class="float-start mb-3">
-            <img src="<?php echo $this->settings_model->get_logo_dark(); ?>" alt="" height="18">
+          <div class="float-start mb-3" style="display: flex; justify-content: center; align-items: center; width:100%;">
+            <img src="<?php echo $this->settings_model->get_logo_dark(); ?>" alt="logo" height="80">
           </div>
         </div>
 
@@ -30,7 +30,11 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="float-start mt-3">
-              <p><b><?php echo get_phrase('hello'); ?>, <?php echo $student_details['name']; ?></b></p>
+              <p>
+                <?php echo get_phrase('hello'); ?>, 
+                <b><?php echo $student_details['name']; ?></b><br>
+                <?=  $student_details['class_name'] ?>  <?=  $student_details['section_name'] ?>  
+              </p>
               <p class="text-muted font-13"><?php echo get_phrase('please_find_below_the_invoice'); ?>.</p>
             </div>
 

@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-1 mb-lg-0">
-                        <select name="parent_id[]" class="form-control" required>
+                        <select name="parent_id[]" class="form-control">
                             <option value=""><?php echo get_phrase('select_a_parent'); ?></option>
                             <?php $parents = $this->db->get_where('parents', array('school_id' => $school_id))->result_array(); ?>
                             <?php foreach($parents as $parent): ?>
@@ -66,7 +66,7 @@
 </form>
 
 <div id = "blank-row" style="display: none;">
-    <div class="row student-row">
+    <div class="row student-row mt-1">
         <div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 mb-3 mb-lg-0">
             <div class="row justify-content-md-center">
                 <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-1 mb-lg-0">

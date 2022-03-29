@@ -19,7 +19,15 @@
                 <td> <?php echo sprintf('%08d', $invoice['id']); ?> </td>
                 <td>
                     <?php echo $student_details['name']; ?> <br>
-                    <small> <strong><?php echo get_phrase('class'); ?> :</strong> <?php echo $class_details['name']; ?></small>
+                    <small> 
+                    <strong>
+                        <?php echo get_phrase('class'); ?> :</strong> 
+                        <?php echo $class_details['name']; ?>
+                    </small><br>
+                    <small> 
+                        <strong><?php echo get_phrase('section'); ?> :</strong> 
+                        <?=  $student_details['section_name'] ?> 
+                    </small>
                 </td>
                 <td> <?php echo $invoice['title']; ?> </td>
                 <td>
@@ -49,10 +57,17 @@
                     <div class="dropdown text-center">
                         <button type="button" class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a href="<?php echo route('invoice/invoice/'.$invoice['id']); ?>" class="dropdown-item" target="_blank"><?php echo get_phrase('print_invoice'); ?></a>
-                            <!-- item-->
+                            <!--------------------------------------------------------------IF STATUS UNPAID-->
+                        <?php if (strtolower($invoice['status']) == 'unpaid'): ?>
+                            <!-- item_takepayment-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/invoice/take_payment/'.$invoice['id']); ?>', '<?php echo get_phrase('take_payment'); ?>');"><?php echo get_phrase('take_payment'); ?></a>
+                        <?php endif; ?>
+                            
+                            <!-- item_print_invoice-->
+                            <a href="<?php echo route('invoice/print_invoice/'.$invoice['id'].$payment['payment_id']); ?>" class="dropdown-item" target="_blank"><?php echo get_phrase('print_invoice'); ?></a>
+                            <!-- item_edit-->
                             <a href="javascript:void(0);" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/invoice/edit/'.$invoice['id']); ?>', '<?php echo get_phrase('update_invoice'); ?>');"><?php echo get_phrase('edit'); ?></a>
-                            <!-- item-->
+                            <!-- item_delete-->
                             <a href="javascript:void(0);" class="dropdown-item" onclick="confirmModal('<?php echo route('invoice/delete/'.$invoice['id']); ?>', showAllInvoices )"><?php echo get_phrase('delete'); ?></a>
                         </div>
                     </div>

@@ -1,14 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-*  @author   : Creativeitem
-*  date      : November, 2019
-*  Ekattor School Management System With Addons
-*  http://codecanyon.net/user/Creativeitem
-*  http://support.creativeitem.com
-*/
-
 class Admin extends CI_Controller {
 
 	public function __construct(){
@@ -562,9 +554,32 @@ class Admin extends CI_Controller {
 		}
 
 		if($param1 == 'filter'){
-			$page_data['class_id'] = $param2;
-			$page_data['section_id'] = $param3;
-			$this->load->view('backend/admin/student/list', $page_data);
+
+			$json= $this->input->get('json');
+			if($json ==1 )
+			{
+				$school_id = school_id(); 
+				$enrols = $this->db->where([ 
+					'class_id' => $param2 , 
+					'section_id' => $param3 ,
+					'school_id' => $school_id 
+					])
+				->get('enrols')
+				->result_array();
+				if(count($enrols) > 0 )
+				{
+					$stuid=  array_column($enrols,'student_id');	
+					$students=	$this->db->select('id, name')->where_in('id',$stuid )->get('users')->result_array();
+					echo json_encode( ['success' => count($students) , 'data' => $students] );				
+			}else echo json_encode( ['success' => 0 ] );
+				// $student = $this->db->get_where('students', array('id' => $enroll['student_id']))->row_array();
+				// $student = $this->db->get_where('students', array('id' => $enroll['student_id']))->row_array();	
+			}
+			else {
+				$page_data['class_id'] = $param2;
+				$page_data['section_id'] = $param3;
+				$this->load->view('backend/admin/student/list', $page_data);
+			}
 		}
 
 		if(empty($param1)){
@@ -715,6 +730,13 @@ class Admin extends CI_Controller {
       echo $response;
     }
 
+	//For take payment
+	if ($param1 == 'take_payment') {
+		$response = $this->crud_model->take_payment($param2);
+		echo $response;
+		}
+	  
+
     // For editing invoice
     if ($param1 == 'update') {
       $response = $this->crud_model->update_invoice($param2);
@@ -751,6 +773,17 @@ class Admin extends CI_Controller {
       $page_data['selected_status'] = htmlspecialchars($this->input->get('selectedStatus'));
       $this->load->view('backend/admin/invoice/list', $page_data);
     }
+
+
+    // print invoices
+    if ($param1 == 'print_invoice') {
+		$page_data['invoice_id'] = $param2;
+		$page_data['folder_name'] = 'invoice';
+		$page_data['page_name'] = 'print_invoice';
+		$page_data['page_title']  = 'invoice';
+		$this->load->view('backend/index', $page_data);
+	}  
+
     // showing the index file
     if(empty($param1)){
       $page_data['folder_name'] = 'invoice';
@@ -763,6 +796,25 @@ class Admin extends CI_Controller {
       $page_data['selected_status'] = 'all';
       $this->load->view('backend/index', $page_data);
     }
+  }
+
+  //PAYMENT HISTORY
+  public function payment_history(){
+    
+    // showing the index file
+    if(empty($param1)){
+      $page_data['folder_name'] = 'invoice';
+      $page_data['page_title']  = 'payment_history';
+      $page_data['page_name']  = 'payment_history';
+      $first_day_of_month = "1 ".date("M")." ".date("Y").' 00:00:00';
+      $last_day_of_month = date("t")." ".date("M")." ".date("Y").' 23:59:59';
+      $page_data['date_from']   = strtotime($first_day_of_month);
+      $page_data['date_to']     = strtotime($last_day_of_month);
+      $page_data['selected_class'] = 'all';
+      $page_data['selected_status'] = 'all';
+      $this->load->view('backend/index', $page_data);
+    }   
+ 
   }
 
   //EXPORT STUDENT FEES

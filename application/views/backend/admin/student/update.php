@@ -26,6 +26,20 @@
                         </div>
 
                         <div class="form-group row mb-3">
+                            <label class="col-md-3 col-form-label" for="adhaar"><?php echo get_phrase('adhaar_number'); ?></label>
+                            <div class="col-md-9">
+                                <input type="text" id="adhaar" name="adhaar" class="form-control" value="<?php echo $this->user_model->get_user_details($student['user_id'], 'adhaar'); ?>" placeholder="adhaar" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label class="col-md-3 col-form-label" for="father"><?php echo get_phrase('father_name'); ?></label>
+                            <div class="col-md-9">
+                                <input type="text" id="father" name="father" class="form-control"  value="<?php echo $this->user_model->get_user_details($student['user_id'], 'father'); ?>" placeholder="father name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
                             <label class="col-md-3 col-form-label" for="email"><?php echo get_phrase('email'); ?></label>
                             <div class="col-md-9">
                                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $this->user_model->get_user_details($student['user_id'], 'email'); ?>" placeholder="email" required>

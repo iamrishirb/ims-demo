@@ -1,17 +1,19 @@
 <?php if($working_page == 'filter'): ?>
     <!--title-->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <h4 class="page-title">
-                    <i class="mdi mdi-calendar-today title_icon"></i> <?php echo get_phrase('student'); ?>
-                    <a href="<?php echo route('student/create'); ?>" class="btn btn-icon btn-success btn-rounded mb-1 mt-3 alignToTitle float-end"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_new_student'); ?></a>
-                </h4>
-            </div>
-        </div>
+    <div class="row d-print-none">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body py-2">
+                    <h4 class="page-title d-inline-block">
+                        <i class="mdi mdi-calendar-today title_icon"></i> <?php echo get_phrase('student'); ?>
+                    </h4>
+                    <a href="<?php echo route('student/create'); ?>" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_new_student'); ?></a>
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
     </div>
 
-    <div class="row">
+    <div class="row d-print-none">
         <div class="col-12">
             <div class="card ">
                 <div class="row mt-3">

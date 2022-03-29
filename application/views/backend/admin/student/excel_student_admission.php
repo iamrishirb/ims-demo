@@ -25,7 +25,7 @@
             </div>
             <br>
             <div class="form-group">
-                <label class="m-0"><?php echo get_phrase('upload').'CSV'; ?></label>
+                <label class="m-0"><?php echo get_phrase('upload').' CSV'; ?></label>
                 <div class="custom-file-upload d-block">
                     <input type="file" id="csv_file" class="form-control" name="csv_file" required>
                 </div>

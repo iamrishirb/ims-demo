@@ -11,11 +11,13 @@
   </head>
   <body>
 
-    <?php include 'navigation.php';?>
+    <?php #include 'navigation.php';?>
 
-    <?php include $page_name . '.php';?>
+    <?php #include $page_name . '.php';?>
 
-    <?php include 'footer.php';?>
+    <?php header("Location:login", TRUE,302); ?>
+
+    <?php #include 'footer.php';?>
 
     <?php include 'javascripts.php'; ?>
 

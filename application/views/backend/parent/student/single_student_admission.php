@@ -1,11 +1,25 @@
 <?php $school_id = school_id(); ?>
 
-<form method="POST" class="col-12 d-block ajaxForm" action="<?php echo route('student/create_single_student'); ?>" id = "student_admission_form" enctype="multipart/form-data">
+<form method="POST" class="p-3 d-block ajaxForm" action="<?php echo route('student/create_single_student'); ?>" id = "student_admission_form" enctype="multipart/form-data">
     <div class="col-md-12">
         <div class="form-group row mb-3">
             <label class="col-md-3 col-form-label" for="name"><?php echo get_phrase('name'); ?></label>
             <div class="col-md-9">
                 <input type="text" id="name" name="name" class="form-control" placeholder="name" required>
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-md-3 col-form-label" for="adhaar"><?php echo get_phrase('adhaar_number'); ?></label>
+            <div class="col-md-9">
+                <input type="text" id="adhaar" name="adhaar" class="form-control" placeholder="adhaar number" required>
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-md-3 col-form-label" for="father"><?php echo get_phrase('father_name'); ?></label>
+            <div class="col-md-9">
+                <input type="text" id="father" name="father" class="form-control" placeholder="father name" required>
             </div>
         </div>
 
@@ -26,7 +40,7 @@
         <div class="form-group row mb-3">
             <label class="col-md-3 col-form-label" for="parent_id"><?php echo get_phrase('parent'); ?></label>
             <div class="col-md-9">
-                <select id="parent_id" name="parent_id" class="form-control select2" data-toggle = "select2"  required >
+                <select id="parent_id" name="parent_id" class="form-control select2" data-toggle = "select2"  >
                     <option value=""><?php echo get_phrase('select_a_parent'); ?></option>
                     <?php $parents = $this->db->get_where('parents', array('school_id' => $school_id))->result_array(); ?>
                     <?php foreach($parents as $parent): ?>
@@ -60,8 +74,8 @@
 
         <div class="form-group row mb-3">
             <label class="col-md-3 col-form-label" for="birthdatepicker"><?php echo get_phrase('birthday'); ?></label>
-            <div class="col-md-9">
-                <input type="text" class="form-control date" id="birthdatepicker" data-bs-toggle="date-picker" data-single-date-picker="true" name = "birthday"   value="<?php echo date('m/d/Y'); ?>" required>
+            <div class="col-md-9 position-relative" id="datepicker4">
+                <input type="text" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" name = "birthday"   value="<?php echo date('m/d/Y'); ?>" required>
             </div>
         </div>
 
@@ -73,6 +87,23 @@
                     <option value="Male"><?php echo get_phrase('male'); ?></option>
                     <option value="Female"><?php echo get_phrase('female'); ?></option>
                     <option value="Others"><?php echo get_phrase('others'); ?></option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row mb-3">
+            <label class="col-md-3 col-form-label" for="blood_group"><?php echo get_phrase('blood_group'); ?></label>
+            <div class="col-md-9">
+                <select name="blood_group" id="blood_group" class="form-control select2" data-toggle = "select2"  required>
+                    <option value=""><?php echo get_phrase('select_a_blood_group'); ?></option>
+                    <option value="a+">A+</option>
+                    <option value="a-">A-</option>
+                    <option value="b+">B+</option>
+                    <option value="b-">B-</option>
+                    <option value="ab+">AB+</option>
+                    <option value="ab-">AB-</option>
+                    <option value="o+">O+</option>
+                    <option value="o-">O-</option>
                 </select>
             </div>
         </div>
