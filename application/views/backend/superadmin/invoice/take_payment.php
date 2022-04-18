@@ -7,6 +7,16 @@
     <label for="total_amount"><?php echo get_phrase('total_amount').' ('.currency_code_and_symbol('code').')'; ?></label>
     <input type="text" class="form-control" id="total_amount" name = "total_amount" value="<?php echo $invoice_details['total_amount']; ?>" readonly>
 </div>
+<!--SCHOLARSHIP AMOUNT---------------------------------------------------------------------------------->
+<div class="form-group mb-1">
+    <label for="total_amount"><?php echo get_phrase('scholarship_amount').' ('.currency_code_and_symbol('code').')'; ?></label>
+    <input type="text" class="form-control" id="total_amount" name = "total_amount" value="<?php echo $invoice_details['scholarship']; ?>" readonly>
+</div>
+<!--PAYABLE AMOUNT---------------------------------------------------------------------------------->
+<div class="form-group mb-1">
+    <label for="total_amount"><?php echo get_phrase('payable_amount').' ('.currency_code_and_symbol('code').')'; ?></label>
+    <input type="text" class="form-control" id="total_amount" name = "total_amount" value="<?php echo $invoice_details['payable_amount']; ?>" readonly>
+</div>
 <!--AMOUNT PAID---------------------------------------------------------------------------------->
 <div class="form-group mb-1">
     <label for="paid_amount"><?php echo get_phrase('paid_amount').' ('.currency_code_and_symbol('code').')'; ?></label>

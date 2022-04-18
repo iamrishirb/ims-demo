@@ -565,6 +565,9 @@ class User_model extends CI_Model {
 	//START STUDENT AND ADMISSION section
 	public function single_student_create(){
 		$user_data['name'] = html_escape($this->input->post('name'));
+		$user_data['father'] = html_escape($this->input->post('father'));
+		$user_data['mother'] = html_escape($this->input->post('mother'));
+		$user_data['adhaar'] = html_escape($this->input->post('adhaar'));
 		$user_data['email'] = html_escape($this->input->post('email'));
 		$user_data['password'] = sha1(html_escape($this->input->post('password')));
 		$user_data['birthday'] = strtotime(html_escape($this->input->post('birthday')));
@@ -573,6 +576,7 @@ class User_model extends CI_Model {
 		$user_data['address'] = html_escape($this->input->post('address'));
 		$user_data['phone'] = html_escape($this->input->post('phone'));
 		$user_data['role'] = 'student';
+		$data['register_at'] = strtotime(date('d-M-Y'));
 		$user_data['school_id'] = $this->school_id;
 		$user_data['watch_history'] = '[]';
 
@@ -747,6 +751,9 @@ class User_model extends CI_Model {
 		$enroll_data['section_id'] = html_escape($this->input->post('section_id'));
 
 		$user_data['name'] = html_escape($this->input->post('name'));
+		$user_data['father'] = html_escape($this->input->post('father'));
+		$user_data['mother'] = html_escape($this->input->post('mother'));
+		$user_data['adhaar'] = html_escape($this->input->post('adhaar'));
 		$user_data['email'] = html_escape($this->input->post('email'));
 		$user_data['birthday'] = strtotime(html_escape($this->input->post('birthday')));
 		$user_data['gender'] = html_escape($this->input->post('gender'));

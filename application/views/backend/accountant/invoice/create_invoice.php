@@ -1,30 +1,53 @@
+<?php $enroll = $this->db->get_where('enrols', array('student_id' => $param1))->row_array(); ?>
+<?php $class = $this->db->get_where('classes', array('id' => $enroll['class_id']))->row_array(); ?>
+<?php $section = $this->db->get_where('sections', array('id' => $enroll['section_id']))->row_array(); ?>
+
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('invoice/single'); ?>">
-  <div class="form-row">
-    <div class="form-group mb-2">
-      <label for="class_id_on_create"><?php echo get_phrase('class'); ?></label>
-      <select name="class_id" id="class_id_on_create" class="form-control select2" data-bs-toggle="select2"  required onchange="classWiseStudentOnCreate(this.value)">
-        <option value=""><?php echo get_phrase('select_a_class'); ?></option>
-        <?php $classes = $this->crud_model->get_classes()->result_array(); ?>
-        <?php foreach($classes as $class): ?>
-          <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
-        <?php endforeach; ?>
-      </select>
+
+    <!-- <div class="form-group mb-2">
+        <label for="name"><?php echo get_phrase('student_name'); ?></label>
+        <input type="text" class="form-control" name = "name" value="<?php echo $this->user_model->get_user_details($param2, 'name'); ?>" readonly>
     </div>
 
     <div class="form-group mb-2">
-      <label for="student_id_on_create"><?php echo get_phrase('select_student'); ?></label>
-      <div id = "student_content">
-        <select name="student_id" id="student_id_on_create" class="form-control select2" data-bs-toggle="select2" required >
-          <option value=""><?php echo get_phrase('select_a_student'); ?></option>
-        </select>
+        <label for="class"><?php echo get_phrase('course'); ?></label>
+        <input type="text" class="form-control" name = "class" value="<?php echo $class['name']; ?>" readonly>
+    </div>
+
+    <div class="form-group mb-2">
+        <label for="section"><?php echo get_phrase('specialization'); ?></label>
+        <input type="text" class="form-control" name = "section" value="<?php echo $section['name']; ?>" readonly>
+    </div> -->
+    <!-- Try -->
+    <div class="accordion-item form-group mb-2">
+        <div class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#student_detail" aria-expanded="false" aria-controls="collapseTwo">
+          <strong><?php echo get_phrase('student_detail'); ?></strong>
+          </button>
+        </div>
+      <div id="student_detail" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="form-group mb-2">
+        <label for="name"><?php echo get_phrase('student_name'); ?></label>
+        <input type="text" class="form-control" name = "name" value="<?php echo $this->user_model->get_user_details($param2, 'name'); ?>" readonly>
+        </div>
+
+        <div class="form-group mb-2">
+        <label for="class"><?php echo get_phrase('course'); ?></label>
+        <input type="text" class="form-control" name = "class" value="<?php echo $class['name']; ?>" readonly>
+        </div>
+
+        <div class="form-group mb-2">
+        <label for="section"><?php echo get_phrase('specialization'); ?></label>
+        <input type="text" class="form-control" name = "section" value="<?php echo $section['name']; ?>" readonly>
+        </div>
       </div>
     </div>
+    <!-- try end -->
 
     <div class="form-group mb-2">
-      <label for="title"><?php echo get_phrase('invoice_title'); ?></label>
+      <label for="title"><?php echo get_phrase('title'); ?></label>
       <input type="text" class="form-control" id="title" name = "title" placeholder="Tution Fee for April Month" required>
     </div>
-
     <!--TYPE OF PAYMENT ID-------------------------------------------------------------------------------------->
     <div class="form-group mb-1">
         <label for="type_of_fee_id"><?php echo get_phrase('type_of_fee');?></label>
@@ -52,7 +75,7 @@
     </div>
 
     <!--METHOD-------------------------------------------------------------------------------------->
-    <div class="form-group mb-1">
+    <div class="form-group mb-2">
         <label for="payment_method"><?php echo get_phrase('payment_method');?></label>
         <div id = "payment_method">
             <select name="payment_method" id="method" class="form-control select1" data-bs-toggle="select1" required >
@@ -65,7 +88,10 @@
     </div>
 
     <!--hidden field to update due amount-->
-    <input type="hidden" name="due_amount" value="<?php echo $due_amount = $invoice_details['total_amount'] - $invoice_details['paid_amount'];?>">
+
+    <input type="hidden" name="class_id" value="<?php echo $enroll['class_id'];?>">
+    <input type="hidden" name="section_id" value="<?php echo $enroll['section_id'];?>">
+    <input type="hidden" name="student_id" value="<?php echo $param1;?>">
     <!--STATUS-->
 
     <div class="form-group mb-2">
@@ -76,7 +102,21 @@
         <option value="unpaid"><?php echo get_phrase('unpaid'); ?></option>
       </select>
     </div>
-  </div>
+    <div class="accordion-item form-group mb-2">
+        <div class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scholarship" aria-expanded="false" aria-controls="collapseTwo">
+          <strong><?php echo get_phrase('Scholarship'); ?></strong>
+          </button>
+        </div>
+      <div id="scholarship" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+        <input type="number" class="form-control" id="scholarship" name = "scholarship" placeholder = "Scholarship Amount">
+        </div>
+        <div class="accordion-body">
+        <input type="text" class="form-control" id="scholarship_remark" name = "scholarship_remark" placeholder = "Scholarship Remark">
+        </div>
+      </div>
+    </div>
   <div class="form-group mb-2">
     <button class="btn btn-block btn-primary" type="submit"><?php echo get_phrase('create_invoice'); ?></button>
   </div>
@@ -93,12 +133,4 @@ $(document).ready(function () {
   $('select.select2:not(.normal)').each(function () { $(this).select2({ dropdownParent: '#right-modal' }); }); //initSelect2(['#class_id_on_create', '#student_id_on_create', '#status']);
 });
 
-function classWiseStudentOnCreate(classId) {
-  $.ajax({
-    url: "<?php echo route('invoice/student/'); ?>"+classId,
-    success: function(response){
-      $('#student_id_on_create').html(response);
-    }
-  });
-}
 </script>

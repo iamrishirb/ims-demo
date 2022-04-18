@@ -18,7 +18,7 @@
                 <td> <?php echo sprintf('%08d', $pay['payment_id']); ?> </td>
                 <td>
                     <?php echo $student_details['name']; ?> <br>
-                    <small> <strong><?php echo get_phrase('class'); ?> :</strong> <?php echo $class_details['name']; ?></small>
+                    <small> <strong><?php echo get_phrase('course'); ?> :</strong> <?php echo $class_details['name']; ?></small>
                 </td>
                 <td> <?php echo $pay['remarks']; ?> </td>
                 <td> <?php echo $pay['method']; ?> </td>

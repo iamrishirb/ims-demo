@@ -1,29 +1,23 @@
 <?php $invoice_details = $this->crud_model->get_invoice_by_id($param1); ?>
+<?php $student = $this->db->get_where('students', array('id' => $invoice_details['student_id']))->row_array(); ?>
+<?php $user = $this->db->get_where('users', array('id' => $student['user_id']))->row_array(); ?>
+<?php $class = $this->db->get_where('classes', array('id' => $invoice_details['class_id']))->row_array(); ?>
+<?php $section = $this->db->get_where('sections', array('id' => $invoice_details['section_id']))->row_array(); ?>
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('invoice/update/'.$param1); ?>">
     <div class="form-row">
         <div class="form-group mb-1">
-            <label for="class_id_on_create"><?php echo get_phrase('class'); ?></label>
-            <select name="class_id" id="class_id_on_create" class="form-control select2" data-bs-toggle="select2"  required onchange="classWiseStudentOnCreate(this.value)">
-                <option value=""><?php echo get_phrase('select_a_class'); ?></option>
-                <?php $classes = $this->crud_model->get_classes()->result_array(); ?>
-                <?php foreach($classes as $class): ?>
-                    <option value="<?php echo $class['id']; ?>" <?php if ($class['id'] == $invoice_details['class_id']): ?> selected <?php endif; ?>><?php echo $class['name']; ?></option>
-                <?php endforeach; ?>
-            </select>
+            <label for="name"><?php echo get_phrase('student_name'); ?></label>
+            <input type="text" class="form-control" id="name" name = "name" value="<?php echo $user['name']; ?>" readonly>
         </div>
 
-
         <div class="form-group mb-1">
-            <label for="student_id_on_create"><?php echo get_phrase('select_student'); ?></label>
-            <div id = "student_content">
-                <select name="student_id" id="student_id_on_create" class="form-control select2" data-bs-toggle="select2" required >
-                    <option value=""><?php echo get_phrase('select_a_student'); ?></option>
-                    <?php $enrolments = $this->user_model->get_student_details_by_id('class', $invoice_details['class_id']);
-                    foreach ($enrolments as $enrolment): ?>
-                        <option value="<?php echo $enrolment['student_id']; ?>" <?php if ($invoice_details['student_id'] == $enrolment['student_id']): ?>selected<?php endif; ?>><?php echo $enrolment['name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+            <label for="class_id_on_create"><?php echo get_phrase('course'); ?></label>  
+            <input type="text" class="form-control" id="class_id_on_create" name = "class_id" value="<?php echo $class['name']; ?>" readonly>
+        </div>
+    
+        <div class="form-group mb-1">
+            <label for="section"><?php echo get_phrase('specialization'); ?></label>
+            <input type="section" class="form-control" id="section" name = "section" value="<?php echo $section['name']; ?>" readonly>
         </div>
 
         <div class="form-group mb-1">
