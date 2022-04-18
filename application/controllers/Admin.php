@@ -50,7 +50,7 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index', $page_data);
 	}
 
-	//START CLASS secion
+	//START CLASS section
 	public function manage_class($param1 = '', $param2 = '', $param3 = ''){
 
 		if($param1 == 'create'){
@@ -481,7 +481,13 @@ class Admin extends CI_Controller {
 	}
 	//END EVENT CALENDAR section
 
+	public function zz($param2 = "", $param3 = "") {
 
+		$page_data['class_id'] = $param2;
+		$page_data['section_id'] = $param3;
+		$this->load->view('backend/admin/student/list', $page_data);
+		
+	}
 
 	//START STUDENT ADN ADMISSION section
 	public function student($param1 = '', $param2 = '', $param3 = '', $param4 = '', $param5 = ''){
@@ -760,7 +766,7 @@ class Admin extends CI_Controller {
 
     // Get the list of student. Here param2 defines classId
     if ($param1 == 'student') {
-      $page_data['enrolments'] = $this->user_model->get_student_details_by_id('class', $param2);
+      $page_data['enrolments'] = $this->user_model->get_student_details_by_id('section', $param2,);
       $this->load->view('backend/admin/student/dropdown', $page_data);
     }
 

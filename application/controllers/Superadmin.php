@@ -739,7 +739,7 @@ class Superadmin extends CI_Controller {
   // STUDENT PROMOTION SECTION ENDS
 
   // ACCOUNTING SECTION STARTS
-  public function invoice($param1 = "", $param2 = "") {
+  public function invoice($param1 = "", $param2 = "", $param3 = "") {
     // For creating new invoice
     if ($param1 == 'single') {
       $response = $this->crud_model->create_single_invoice();
@@ -815,6 +815,20 @@ class Superadmin extends CI_Controller {
       $page_data['selected_status'] = 'all';
       $this->load->view('backend/index', $page_data);
     }
+// ADD SINGLE VIEW
+    if($param1 == 'add_single_view'){
+      $page_data['folder_name'] = 'invoice';
+      $page_data['page_name'] = 'add_single_view';
+      $page_data['page_title']  = 'add_single_view';
+      $this->load->view('backend/index', $page_data);
+    }
+// FILTER
+if($param1 == 'filter'){
+  $page_data['class_id'] = $param2;
+  $page_data['section_id'] = $param3;
+  $this->load->view('backend/superadmin/invoice/add_single_list', $page_data);
+}
+
   }
 
   //PAYMENT HISTORY

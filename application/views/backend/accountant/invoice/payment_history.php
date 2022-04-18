@@ -6,9 +6,9 @@
         <h4 class="page-title d-inline-block">
           <i class="mdi mdi-file-document title_icon"></i> <?php echo get_phrase('payment_history'); ?>
         </h4>
-        <!--INVOICES-->
+        <!--INVOICES BUTTON-->
         <a href="<?php echo site_url('superadmin/invoice');?>" class="btn btn-success btn-rounded alignToTitle float-end my-1" style="margin-right: 10px;">
-        <?php echo get_phrase('invoices');?>
+        <?php echo get_phrase('student_fee_manager');?>
         </a>
 
       </div> <!-- end card body-->
@@ -35,7 +35,7 @@
           <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-3 mb-lg-0">
             <div class="form-group">
               <select name="class" id="class_id" class="form-control select2" data-bs-toggle="select2">
-                <option value="all"><?php echo get_phrase('all_class'); ?></option>
+                <option value="all"><?php echo get_phrase('all_courses'); ?></option>
                 <?php
                 $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
                 foreach($classes as $class){

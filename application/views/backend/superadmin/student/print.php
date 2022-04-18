@@ -1,10 +1,9 @@
 <?php $student = $this->db->get_where('students', array('id' => $student_id))->row_array(); ?>
 <?php $enroll = $this->db->get_where('enrols', array('student_id' => $student_id))->row_array(); ?>
-<?php $section = $this->db->get_where('sections', array('class_id' => $enroll['class_id']))->row_array(); ?>
+<?php $section = $this->db->get_where('sections', array('id' => $enroll['section_id']))->row_array(); ?>
 <?php $class = $this->db->get_where('classes', array('id' => $enroll['class_id']))->row_array(); ?>
 <?php $user =$this->session->userdata('user_id'); ?>                        
 <?php $users = $this->db->get_where('users', array('id' => $user_id))->row_array();?>
-
 
                     
 <!--title-->
@@ -42,7 +41,7 @@
           </div>
         </div>
     <hr style="height:1px;color:#333;background-color:#333;" />
-    <h2 style="color:#333;text-align:center;margin-top:40px;margin-bottom:40px"><?php echo get_phrase('registration_Form'); ?></h2>
+    <h2 style="color:#333;text-align:center;margin-top:20px;margin-bottom:20px"><?php echo get_phrase('registration_Form'); ?></h2>
 
     <div class="row"> 
         <div class="col-sm-8">
@@ -63,6 +62,11 @@
             </div>
 
             <div class="row">
+            <p><b><?php echo get_phrase('mother_name'); ?></b>:
+                <?php echo $this->user_model->get_user_details($student['user_id'], 'mother'); ?></p>
+            </div>
+
+            <div class="row">
             <p><b><?php echo get_phrase('adhaar_number'); ?></b>:
                 <?php echo $this->user_model->get_user_details($student['user_id'], 'adhaar'); ?></p>   
             </div>
@@ -74,12 +78,12 @@
 
             <div class="row">
             <p><b><?php echo get_phrase('section'); ?></b>:
-                <?php echo $section['name']; ?></p>   
+                <?php echo $section['name'] ?></p>   
             </div>
 
             <div class="row">
             <p><b><?php echo get_phrase('date_of_registration'); ?></b>:
-                <?php echo $this->user_model->get_user_details($student['user_id'], 'dor'); ?></p>   
+            <?php echo date('m/d/Y', $this->user_model->get_user_details($student['user_id'], 'register_at')); ?></p>   
             </div>
 
             <div class="row">

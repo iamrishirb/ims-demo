@@ -45,7 +45,7 @@
             <div class="float-start mt-3">
               <p><?php echo get_phrase('Bill To,'); ?> <br><br>
               <b><?php echo $student_details['name']; ?></b><br>
-                <?=  $student_details['class_name'] ?>  <?=  $student_details['section_name'] ?>
+                <?=  $student_details['class_name'] ?> <br> <?=  $student_details['section_name'] ?>
               <br>
               <address>
                 <?php echo $student_details['address'] == "" ? '('.get_phrase('address_not_found').')' : $student_details['address']; ?><br>
@@ -111,15 +111,14 @@
                           if ($invoice_details['payment_method'] == 3)
                               echo get_phrase('card');
                       ?></td>
-                    <td><?php echo ($invoice_details['1st_installment']); ?></td>
+                    <td>₹<?php echo ($invoice_details['1st_installment']); ?></td>
                   </tr>
                   <?php $payment_details = $this->crud_model-> get_pay_by_id($invoice_id);
                   foreach ($payment_details as $pay): ?>
                     <tr>
                       <td><?php echo ($pay['payment_id']); ?></td>
                       <td>
-                        
-                        <?php echo get_phrase('').date('D, d-M-Y', $pay['timestamp']); ?>
+                          <?php echo get_phrase('').date('D, d-M-Y', $pay['timestamp']); ?>
                       </td>
                       <td><?php echo ($pay['remarks']); ?></td>
                       <td><?php echo ($pay['type_of_fee_id']); ?></td>     
@@ -154,6 +153,8 @@
             <div class="col-sm-6">
               <div class="float-left mt-3 mt-sm-0">
                 <p><b><?php echo get_phrase('total_amount'); ?> :&nbsp;</b> <span class="float-end"><?php echo currency($invoice_details['total_amount']); ?></span></p>
+                <p><b><?php echo get_phrase('scholarship_amount'); ?> :&nbsp;</b> <span class="float-end"><strike><?php echo currency($invoice_details['scholarship']); ?></strike></span></p>
+                <p><b><?php echo get_phrase('payable_amount'); ?> :&nbsp;</b> <span class="float-end"><?php echo currency($invoice_details['payable_amount']); ?></span></p>
                 <p><b><?php echo get_phrase('due_amount'); ?> : </b> <span class="float-end"><?php echo currency($invoice_details['total_amount'] - $invoice_details['paid_amount']); ?></span></p>
                 <p><b><?php echo get_phrase('total_paid_amount'); ?> : </b> <span class="float-end"><?php echo currency($invoice_details['paid_amount']); ?></span></p>
                 <!-- <p><?php echo get_phrase('paid_amount'); ?> <b><?php echo currency($invoice_details['paid_amount']); ?></b></p>  -->

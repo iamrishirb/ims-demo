@@ -5,6 +5,8 @@
             <th><?php echo get_phrase('student'); ?></th>
             <th><?php echo get_phrase('invoice_title'); ?></th>
             <th><?php echo get_phrase('total_amount'); ?></th>
+            <th><?php echo get_phrase('scholarship'); ?></th>
+            <th><?php echo get_phrase('payable_amount'); ?></th>
             <th><?php echo get_phrase('paid_amount'); ?></th>
             <th><?php echo get_phrase('status'); ?></th>
             <th><?php echo get_phrase('option'); ?></th>
@@ -21,17 +23,25 @@
                     <?php echo $student_details['name']; ?> <br>
                     <small> 
                     <strong>
-                        <?php echo get_phrase('class'); ?> :</strong> 
+                        <?php echo get_phrase('course'); ?> :</strong> 
                         <?php echo $class_details['name']; ?>
                     </small><br>
                     <small> 
-                        <strong><?php echo get_phrase('section'); ?> :</strong> 
+                        <strong><?php echo get_phrase('specialization'); ?> :</strong> 
                         <?=  $student_details['section_name'] ?> 
                     </small>
                 </td>
                 <td> <?php echo $invoice['title']; ?> </td>
                 <td>
                     <?php echo currency($invoice['total_amount']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
+                </td>
+                <td>
+                    <?php echo currency($invoice['scholarship']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
+                </td>
+                <td>
+                    <?php echo currency($invoice['payable_amount']); ?> <br>
                     <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
                 </td>
                 <td>
@@ -64,7 +74,7 @@
                         <?php endif; ?>
                             
                             <!-- item_print_invoice-->
-                            <a href="<?php echo route('invoice/print_invoice/'.$invoice['id'].$payment['payment_id']); ?>" class="dropdown-item" target="_blank"><?php echo get_phrase('print_invoice'); ?></a>
+                            <a href="<?php echo route('invoice/print_invoice/'.$invoice['id'].'/'.$payment['payment_id']); ?>" class="dropdown-item" target="_blank"><?php echo get_phrase('print_invoice'); ?></a>
                             <!-- item_edit-->
                             <a href="javascript:void(0);" class="dropdown-item" onclick="rightModal('<?php echo site_url('modal/popup/invoice/edit/'.$invoice['id']); ?>', '<?php echo get_phrase('update_invoice'); ?>');"><?php echo get_phrase('edit'); ?></a>
                             <!-- item_delete-->
