@@ -48,6 +48,14 @@
                     <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
                 </td>
                 <td>
+                    <?php echo currency($invoice['scholarship']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
+                </td>
+                <td>
+                    <?php echo currency($invoice['payable_amount']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
+                </td>
+                <td>
                     <?php echo currency($invoice['paid_amount']); ?> <br>
                     <small> <strong> <?php echo get_phrase('payment_date'); ?> : </strong> <?php echo date('d-M-Y', $invoice['invoice_date']);  ?> </small><br>
                     <small>

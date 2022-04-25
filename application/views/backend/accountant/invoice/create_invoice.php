@@ -3,7 +3,6 @@
 <?php $section = $this->db->get_where('sections', array('id' => $enroll['section_id']))->row_array(); ?>
 
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('invoice/single'); ?>">
-
     <div class="accordion-item form-group mb-2">
         <div class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#student_detail" aria-expanded="false" aria-controls="collapseTwo">
@@ -71,8 +70,8 @@
             </select>
         </div>
     </div>
+  
     <!-- date & time -->
-
     <label for="date"><?php echo get_phrase('date');?></label>
     <input type="date" class="form-control" id="date" name="date" required>
 

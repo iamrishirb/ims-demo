@@ -71,8 +71,8 @@
             </select>
         </div>
     </div>
+  
     <!-- date & time -->
-
     <label for="date"><?php echo get_phrase('date');?></label>
     <input type="date" class="form-control" id="date" name="date" required>
 
