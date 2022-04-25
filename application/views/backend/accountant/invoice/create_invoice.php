@@ -3,22 +3,6 @@
 <?php $section = $this->db->get_where('sections', array('id' => $enroll['section_id']))->row_array(); ?>
 
 <form method="POST" class="d-block ajaxForm" action="<?php echo route('invoice/single'); ?>">
-
-    <!-- <div class="form-group mb-2">
-        <label for="name"><?php echo get_phrase('student_name'); ?></label>
-        <input type="text" class="form-control" name = "name" value="<?php echo $this->user_model->get_user_details($param2, 'name'); ?>" readonly>
-    </div>
-
-    <div class="form-group mb-2">
-        <label for="class"><?php echo get_phrase('course'); ?></label>
-        <input type="text" class="form-control" name = "class" value="<?php echo $class['name']; ?>" readonly>
-    </div>
-
-    <div class="form-group mb-2">
-        <label for="section"><?php echo get_phrase('specialization'); ?></label>
-        <input type="text" class="form-control" name = "section" value="<?php echo $section['name']; ?>" readonly>
-    </div> -->
-    <!-- Try -->
     <div class="accordion-item form-group mb-2">
         <div class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#student_detail" aria-expanded="false" aria-controls="collapseTwo">
@@ -86,6 +70,10 @@
             </select>
         </div>
     </div>
+  
+    <!-- date & time -->
+    <label for="date"><?php echo get_phrase('date');?></label>
+    <input type="date" class="form-control" id="date" name="date" required>
 
     <!--hidden field to update due amount-->
 

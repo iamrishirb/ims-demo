@@ -155,7 +155,7 @@
                 <p><b><?php echo get_phrase('total_amount'); ?> :&nbsp;</b> <span class="float-end"><?php echo currency($invoice_details['total_amount']); ?></span></p>
                 <p><b><?php echo get_phrase('scholarship_amount'); ?> :&nbsp;</b> <span class="float-end"><strike><?php echo currency($invoice_details['scholarship']); ?></strike></span></p>
                 <p><b><?php echo get_phrase('payable_amount'); ?> :&nbsp;</b> <span class="float-end"><?php echo currency($invoice_details['payable_amount']); ?></span></p>
-                <p><b><?php echo get_phrase('due_amount'); ?> : </b> <span class="float-end"><?php echo currency($invoice_details['total_amount'] - $invoice_details['paid_amount']); ?></span></p>
+                <p><b><?php echo get_phrase('due_amount'); ?> : </b> <span class="float-end"><?php echo currency($invoice_details['payable_amount'] - $invoice_details['paid_amount']); ?></span></p>
                 <p><b><?php echo get_phrase('total_paid_amount'); ?> : </b> <span class="float-end"><?php echo currency($invoice_details['paid_amount']); ?></span></p>
                 <!-- <p><?php echo get_phrase('paid_amount'); ?> <b><?php echo currency($invoice_details['paid_amount']); ?></b></p>  -->
               </div>

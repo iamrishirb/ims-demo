@@ -34,6 +34,17 @@
                 <td> <?php echo $invoice['title']; ?> </td>
                 <td>
                     <?php echo currency($invoice['total_amount']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('invoice_date'); ?> : </strong> <?php echo date('d-M-Y', $invoice['invoice_date']);  ?> </small><br>
+                    <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
+                </td>
+                <td>
+                    <?php echo currency($invoice['scholarship']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('invoice_date'); ?> : </strong> <?php echo date('d-M-Y', $invoice['invoice_date']);  ?> </small><br>
+                    <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
+                </td>
+                <td>
+                    <?php echo currency($invoice['payable_amount']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('invoice_date'); ?> : </strong> <?php echo date('d-M-Y', $invoice['invoice_date']); ?> </small><br>
                     <small> <strong> <?php echo get_phrase('created_at'); ?> : </strong> <?php echo date('d-M-Y', $invoice['created_at']); ?> </small>
                 </td>
                 <td>
@@ -46,8 +57,9 @@
                 </td>
                 <td>
                     <?php echo currency($invoice['paid_amount']); ?> <br>
+                    <small> <strong> <?php echo get_phrase('payment_date'); ?> : </strong> <?php echo date('d-M-Y', $invoice['invoice_date']);  ?> </small><br>
                     <small>
-                        <strong> <?php echo get_phrase('payment_date'); ?> : </strong>
+                        <strong> <?php echo get_phrase('payment_saved_at'); ?> : </strong>
                         <?php if ($invoice['updated_at'] > 0): ?>
                             <?php echo date('d-M-Y', $invoice['updated_at']); ?>
                         <?php else: ?>
