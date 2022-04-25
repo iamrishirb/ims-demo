@@ -81,15 +81,6 @@
     <input type="hidden" name="section_id" value="<?php echo $enroll['section_id'];?>">
     <input type="hidden" name="student_id" value="<?php echo $param1;?>">
     <!--STATUS-->
-
-    <div class="form-group mb-2">
-      <label for="status"><?php echo get_phrase('status'); ?></label>
-      <select name="status" id="status" class="form-control select2" data-bs-toggle="select2" required >
-        <option value=""><?php echo get_phrase('select_a_status'); ?></option>
-        <option value="paid"><?php echo get_phrase('paid'); ?></option>
-        <option value="unpaid"><?php echo get_phrase('unpaid'); ?></option>
-      </select>
-    </div>
     <div class="accordion-item form-group mb-2">
         <div class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scholarship" aria-expanded="false" aria-controls="collapseTwo">
