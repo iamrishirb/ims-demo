@@ -905,7 +905,6 @@ public function get_payment_by_parent_id() {
 		$data['paid_amount'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['type_of_fee_id'] = htmlspecialchars($this->input->post('type_of_fee_id'));
 		$data['payment_method'] = $this->input->post('payment_method');
-		$data['status'] = htmlspecialchars($this->input->post('status'));
 		$data['school_id'] = $this->school_id;
 		$data['session'] = $this->active_session;
 		$data['invoice_date'] = strtotime(date($this->input->post('date')));
@@ -926,28 +925,29 @@ public function get_payment_by_parent_id() {
 			$data['updated_at'] = strtotime(date('d-M-Y'));
 		}
 
-		if ($data['paid_amount'] > $data['total_amount']) {
+		if ($data['paid_amount'] < $data['payable_amount']) {
+			$data['status'] = 'unpaid';
+		}
+
+		if ($data['payable_amount'] == $data['paid_amount']) {
+			$data['status'] = 'paid';
+		}
+
+		if($this->db->insert('invoices', $data)){
 			$response = array(
-				'status' => false,
-				'notification' => get_phrase('paid_amount_can_not_get_bigger_than_total_amount')
+				'status' => true,
+				'notification' => get_phrase('invoice_added_successfully')
 			);
 			return json_encode($response);
 		}
-		if ($data['status'] == 'paid' && $data['total_amount'] != $data['paid_amount']) {
+		else{
 			$response = array(
 				'status' => false,
-				'notification' => get_phrase('paid_amount_is_not_equal_to_total_amount')
+				'notification' => get_phrase('unexpected_error')
 			);
-			return json_encode($response);
 		}
 
-		$this->db->insert('invoices', $data);
-
-		$response = array(
-			'status' => true,
-			'notification' => get_phrase('invoice_added_successfully')
-		);
-		return json_encode($response);
+		
 	}
 
 	public function create_mass_invoice() {
