@@ -13,8 +13,10 @@
         </a>
         
         <!-- Add Single Invoice Button -->
-        <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" onclick="rightModal('<?php echo site_url('modal/popup/invoice/single'); ?>', '<?php echo get_phrase('add_single_invoice'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_single_invoice'); ?></button>
-        <!-- Check Payment History Button -->
+        <a href="<?php echo site_url('Superadmin/invoice/add_single_view');?>" class="btn btn-outline-primary btn-rounded alignToTitle float-end mt-1" style="margin-left: 20px; padding: 8px 20px;">
+        <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_single_invoice'); ?>
+        </a>
+        <!-- ADD MASS INVOICE -->
         <!-- <button type="button" class="btn btn-outline-success btn-rounded alignToTitle float-end my-1" style="margin-right: 10px;" onclick="rightModal('<?php echo site_url('modal/popup/invoice/mass'); ?>', '<?php echo get_phrase('add_mass_invoice'); ?>')"> <i class="mdi mdi-plus"></i> <?php echo get_phrase('add_mass_invoice'); ?></button> -->
 
       </div> <!-- end card body-->
@@ -38,7 +40,7 @@
           <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-3 mb-lg-0">
             <div class="form-group">
               <select name="class" id="class_id" class="form-control select2" data-bs-toggle="select2">
-                <option value="all"><?php echo get_phrase('all_class'); ?></option>
+                <option value="all"><?php echo get_phrase('all_courses'); ?></option>
                 <?php
                 $classes = $this->db->get_where('classes', array('school_id' => school_id()))->result_array();
                 foreach($classes as $class){

@@ -24,6 +24,13 @@
         </div>
 
         <div class="form-group row mb-3">
+            <label class="col-md-3 col-form-label" for="mother"><?php echo get_phrase('mother_name'); ?></label>
+            <div class="col-md-9">
+                <input type="text" id="mother" name="mother" class="form-control" placeholder="mother name" required>
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
             <label class="col-md-3 col-form-label" for="email"><?php echo get_phrase('email'); ?></label>
             <div class="col-md-9">
                 <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
@@ -51,10 +58,10 @@
         </div>
 
         <div class="form-group row mb-3">
-            <label class="col-md-3 col-form-label" for="class_id"><?php echo get_phrase('class'); ?></label>
+            <label class="col-md-3 col-form-label" for="class_id"><?php echo get_phrase('course'); ?></label>
             <div class="col-md-9">
                 <select name="class_id" id="class_id" class="form-control select2" data-toggle = "select2" required onchange="classWiseSection(this.value)">
-                    <option value=""><?php echo get_phrase('select_a_class'); ?></option>
+                    <option value=""><?php echo get_phrase('select_a_course'); ?></option>
                     <?php $classes = $this->db->get_where('classes', array('school_id' => $school_id))->result_array(); ?>
                     <?php foreach($classes as $class){ ?>
                         <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
@@ -64,10 +71,10 @@
         </div>
 
         <div class="form-group row mb-3">
-            <label class="col-md-3 col-form-label" for="section_id"><?php echo get_phrase('section'); ?></label>
+            <label class="col-md-3 col-form-label" for="section_id"><?php echo get_phrase('specialization'); ?></label>
             <div class="col-md-9" id = "section_content">
                 <select name="section_id" id="section_id" class="form-control select2" data-toggle = "select2" required >
-                    <option value=""><?php echo get_phrase('select_section'); ?></option>
+                    <option value=""><?php echo get_phrase('select_specialization'); ?></option>
                 </select>
             </div>
         </div>

@@ -40,6 +40,13 @@
                         </div>
 
                         <div class="form-group row mb-3">
+                            <label class="col-md-3 col-form-label" for="mother"><?php echo get_phrase('mother_name'); ?></label>
+                            <div class="col-md-9">
+                                <input type="text" id="mother" name="mother" class="form-control"  value="<?php echo $this->user_model->get_user_details($student['user_id'], 'mother'); ?>" placeholder="mother name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
                             <label class="col-md-3 col-form-label" for="email"><?php echo get_phrase('email'); ?></label>
                             <div class="col-md-9">
                                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $this->user_model->get_user_details($student['user_id'], 'email'); ?>" placeholder="email" required>
@@ -49,7 +56,7 @@
                         <div class="form-group row mb-3">
                             <label class="col-md-3 col-form-label" for="parent_id"><?php echo get_phrase('parent'); ?></label>
                             <div class="col-md-9">
-                                <select id="parent_id" name="parent_id" class="form-control select2"  data-bs-toggle="select2" required >
+                                <select id="parent_id" name="parent_id" class="form-control select2"  data-bs-toggle="select2"  >
                                     <option value="">Select A Parent</option>
                                     <?php $parents = $this->db->get_where('parents', array('school_id' => $school_id))->result_array(); ?>
                                     <?php foreach($parents as $parent): ?>

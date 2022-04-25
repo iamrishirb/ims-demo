@@ -896,17 +896,30 @@ public function get_payment_by_parent_id() {
 		$data['title'] = htmlspecialchars($this->input->post('title'));
 		$data['remarks'] = htmlspecialchars($this->input->post('remarks'));
 		$data['total_amount'] = htmlspecialchars($this->input->post('total_amount'));
+		$data['scholarship'] = htmlspecialchars($this->input->post('scholarship'));
+		$data['scholarship_remark'] = htmlspecialchars($this->input->post('scholarship_remark'));
 		$data['class_id'] = htmlspecialchars($this->input->post('class_id'));
+		$data['section_id'] = htmlspecialchars($this->input->post('section_id'));
 		$data['student_id'] = htmlspecialchars($this->input->post('student_id'));
 		$data['1st_installment'] = htmlspecialchars($this->input->post('paid_amount'));
 		$data['paid_amount'] = htmlspecialchars($this->input->post('paid_amount'));
-		$data['due_amount'] = $data['total_amount'] - $data['paid_amount'];
 		$data['type_of_fee_id'] = htmlspecialchars($this->input->post('type_of_fee_id'));
 		$data['payment_method'] = $this->input->post('payment_method');
 		$data['status'] = htmlspecialchars($this->input->post('status'));
 		$data['school_id'] = $this->school_id;
 		$data['session'] = $this->active_session;
+		$data['invoice_date'] = strtotime(date($this->input->post('date')));
 		$data['created_at'] = strtotime(date('d-M-Y'));
+
+
+		if($data['scholarship']==""){
+			$data['payable_amount'] = $data['total_amount'];
+			$data['due_amount'] = $data['payable_amount'] - $data['paid_amount'];
+		}
+		else{
+			$data['payable_amount'] = $data['total_amount'] - $data['scholarship'];
+			$data['due_amount'] = $data['payable_amount'] - $data['paid_amount'];
+		}
 
 		/*KEEPING TRACK OF PAYMENT DATE*/
 		if ($this->input->post('paid_amount') > 0) {
@@ -1003,7 +1016,7 @@ public function get_payment_by_parent_id() {
 		$data['student_id'] 		 = $this->input->post('student_id');
 		$data['method']      		 = $this->input->post('method');
 	//	$data['payment_type']        = 'income';
-	//	$data['type_of_fee_id']      = htmlspecialchars($this->input->post('type_of_fee_id'));
+		$data['type_of_fee_id']      = htmlspecialchars($this->input->post('type_of_fee_id'));
 		$data['payment_amount'] 	 = htmlspecialchars($this->input->post('payment_amount'));
 		$data['timestamp']           = strtotime(date('d-M-Y'));
 		$data2['due_amount']         = $this->input->post('due_amount');
